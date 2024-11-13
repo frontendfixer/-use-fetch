@@ -25,8 +25,13 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           scope: "@frontendfixer"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
       - name: Install dependencies and build 🔧
-        run: npm ci && npm run build
+        run: pnpm install && pnpm build
       - name: Publish package on NPM 📦
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
