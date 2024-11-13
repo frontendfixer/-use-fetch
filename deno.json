@@ -1,0 +1,6 @@
+{
+  "tasks": {},
+  "imports": {
+    "node:": "@types/node"
+  }
+}

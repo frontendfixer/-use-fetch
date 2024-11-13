@@ -1,0 +1,26 @@
+{
+  "name": "@frontendfixer/use-fetch",
+  "version": "0.1.10",
+  "description": "A flexible and type-safe HTTP client utility built on top of the native fetch API, designed to handle common HTTP request patterns with built-in error handling and configuration options.",
+  "author": {
+    "name": "Lakshmikanta Patra",
+    "email": "frontendfixer@gmail.com",
+    "url": "https://frontendfixer.github.io/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontendfixer/-use-fetch.git"
+  },
+  "homepage": "https://github.com/frontendfixer/-use-fetch#readme",
+  "type": "module",
+  "keywords": [
+    "ts",
+    "fetch",
+    "utility",
+    "helper"
+  ],
+  "scripts": {
+    "start": "node ./main.ts"
+  }
+}
