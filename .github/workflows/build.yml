@@ -1,0 +1,77 @@
+name: Build Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build
+        run: npm run build
+
+      - name: Notify on success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const sha = context.sha.substring(0, 7);
+            const workflow_url = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            const message = `✅ Build succeeded!\n\n` +
+                          `- Commit: \`${sha}\`\n` +
+                          `- Branch: \`${context.ref.replace('refs/heads/', '')}\`\n` +
+                          `- [View workflow details](${workflow_url})`;
+
+            if (context.eventName === 'pull_request') {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: owner,
+                repo: repo,
+                body: message
+              });
+            }
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const sha = context.sha.substring(0, 7);
+            const workflow_url = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            const message = `❌ Build failed!\n\n` +
+                          `- Commit: \`${sha}\`\n` +
+                          `- Branch: \`${context.ref.replace('refs/heads/', '')}\`\n` +
+                          `- [View error details](${workflow_url})\n\n` +
+                          `Please check the workflow logs and fix the issues.`;
+
+            if (context.eventName === 'pull_request') {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: owner,
+                repo: repo,
+                body: message
+              });
+            }

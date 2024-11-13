@@ -1,6 +1,28 @@
 {
-  "tasks": {},
-  "imports": {
-    "node:": "@types/node"
+  "name": "@fixer/fetch",
+  "version": "0.1.10",
+  "description": "A flexible and type-safe HTTP client utility built on top of the native fetch API, designed to handle common HTTP request patterns with built-in error handling and configuration options.",
+  "license": "MIT",
+  "include": ["main.ts, README.md"],
+  "exports": "./main.ts",
+  "tasks": {
+    "dev": "deno run --allow-net --allow-env mod.ts"
+  },
+  "fmt": {
+    "options": {
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": false
+    }
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "compilerOptions": {
+    "strict": true,
+    "allowJs": false,
+    "lib": ["deno.window"]
   }
 }

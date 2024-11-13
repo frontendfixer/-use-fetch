@@ -14,13 +14,43 @@
   },
   "homepage": "https://github.com/frontendfixer/-use-fetch#readme",
   "type": "module",
-  "keywords": [
-    "ts",
-    "fetch",
-    "utility",
-    "helper"
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
   ],
   "scripts": {
-    "start": "node ./main.ts"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "fetch",
+    "http",
+    "request",
+    "typescript",
+    "node",
+    "deno"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.3",
+    "tsup": "^8.3.5",
+    "rimraf": "^5.0.10",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.6.3"
   }
 }
